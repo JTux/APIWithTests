@@ -62,6 +62,10 @@
     <Compile Include="Migrations\201810221402444_initial-migrat.Designer.cs">
       <DependentUpon>201810221402444_initial-migrat.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810221542210_added-columns.cs" />
+    <Compile Include="Migrations\201810221542210_added-columns.Designer.cs">
+      <DependentUpon>201810221542210_added-columns.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -72,6 +76,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201810221402444_initial-migrat.resx">
       <DependentUpon>201810221402444_initial-migrat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810221542210_added-columns.resx">
+      <DependentUpon>201810221542210_added-columns.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
