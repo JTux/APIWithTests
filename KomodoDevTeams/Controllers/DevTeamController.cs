@@ -16,14 +16,14 @@ namespace KomodoDevTeams.Controllers
 		public IHttpActionResult GetAll()
 		{
 			DevTeamServices devTeamService = CreateDevTeamService();
-			var devs = devTeamService.GetDevTeams();
-			return Ok(devs);
+			var devTeam = devTeamService.GetDevTeams();
+			return Ok(devTeam);
 		}
 		public IHttpActionResult Get(int id)
 		{
 			DevTeamServices devTeamService = CreateDevTeamService();
-			var devs = devTeamService.GetDevTeamById(id);
-			return Ok(devs);
+			var devTeam = devTeamService.GetDevTeamById(id);
+			return Ok(devTeam);
 		}
 		public IHttpActionResult Post(DevTeamCreate dev)
 		{

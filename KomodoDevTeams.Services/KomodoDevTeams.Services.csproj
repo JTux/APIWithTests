@@ -54,7 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="DevService.cs" />
     <Compile Include="DevTeamServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
