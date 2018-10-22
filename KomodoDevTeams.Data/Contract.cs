@@ -12,6 +12,8 @@ namespace KomodoDevTeams.Data
 		[Key]
 		public int ContractId { get; set; }
 		public Guid OwnerId { get; set; }
+		public int DevId { get; set; }
+		public int DevTeamId { get; set; }
 
 		public virtual Dev Dev { get; set; }
 		public virtual DevTeam DevTeam { get; set; }

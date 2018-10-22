@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KomodoDevTeams.Models
 {
-	class ContractDetails
+	public class ContractDetails
 	{
 		public int ContractId { get; set; }
 		public int DevId { get; set; }

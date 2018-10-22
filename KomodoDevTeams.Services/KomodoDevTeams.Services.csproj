@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContractService.cs" />
     <Compile Include="DevService.cs" />
     <Compile Include="DevTeamServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,6 +64,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\KomodoDevTeams.Contracts\KomodoDevTeams.Contracts.csproj">
+      <Project>{928AA7C2-537F-428D-8F92-06D4D71C8DB3}</Project>
+      <Name>KomodoDevTeams.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KomodoDevTeams.Data\KomodoDevTeams.Data.csproj">
       <Project>{53fce0ab-2430-42d7-8b14-497c2edfe89c}</Project>
       <Name>KomodoDevTeams.Data</Name>
