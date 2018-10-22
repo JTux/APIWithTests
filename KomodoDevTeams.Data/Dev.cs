@@ -18,6 +18,6 @@ namespace KomodoDevTeams.Data
 		[Required]
 		public DateTimeOffset HireDate { get; set; }
 
-		public virtual DevTeam DevTeam { get; set; };
+		public virtual DevTeam DevTeam { get; set; }
 	}
 }
