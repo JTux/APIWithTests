@@ -12,7 +12,7 @@ namespace KomodoDevTeams.Data
 		[Key]
 		public int TeamId { get; set; }
 		[Required]
-		public int OwnerId { get; set; }
+		public Guid OwnerId { get; set; }
 		[Required]
 		public string TeamName { get; set; }
 	}

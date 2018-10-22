@@ -8,6 +8,7 @@ namespace KomodoDevTeams.Models
 {
 	public class DevTeamEdit
 	{
+		public int TeamId { get; set; }
 		public string TeamName { get; set; }
 	}
 }
