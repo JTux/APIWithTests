@@ -58,6 +58,10 @@
     <Compile Include="DevDetails.cs" />
     <Compile Include="DevEdit.cs" />
     <Compile Include="DevListItem.cs" />
+    <Compile Include="DevTeamCreate.cs" />
+    <Compile Include="DevTeamDetails.cs" />
+    <Compile Include="DevTeamEdit.cs" />
+    <Compile Include="DevTeamListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
