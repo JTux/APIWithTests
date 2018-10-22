@@ -32,7 +32,30 @@ namespace KomodoDevTeams.WebAPI.Controllers
 
 			var service = CreateDevService();
 
-			if(!service)
+			if (!service.CreateDev(dev))
+				return InternalServerError();
+			return Ok();
+		}
+		public IHttpActionResult Put(DevEdit dev)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			var service = CreateDevService();
+
+			if (!service.UpdateDev(dev))
+				return InternalServerError();
+
+			return Ok();
+		}
+		public IHttpActionResult Delete(int id)
+		{
+			var service = CreateDevService();
+
+			if (!service.DeleteDev(id))
+				return InternalServerError();
+
+			return Ok();
 		}
 		private DevService CreateDevService()
 		{
