@@ -25,7 +25,11 @@ namespace KomodoDevTeams.Tests
 		[TestMethod]
 		public void DevServices_CreateDev_returns_correct_dev_name()
 		{
-
+			DevCreate newDev = new DevCreate()
+			{
+				OwnerId = _userId,
+				DevName = "Zach"
+			};
 
 			_devService = new DevService(_userId);
 
