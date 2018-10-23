@@ -15,7 +15,7 @@ namespace KomodoDevTeams.Services
 
 		public ContractService(Guid userid)
 		{
-			userid = _userid;
+			_userid = userid;
 		}
 
 		public bool CreateContract(ContractCreate model)
