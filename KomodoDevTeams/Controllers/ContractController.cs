@@ -25,19 +25,19 @@ namespace KomodoDevTeams.Controllers
 
         public IHttpActionResult GetAll()
         {
-            DontBreakPlease();
+            PopulateContractService();
             var contract = _contractService.GetContracts();
             return Ok(contract);
         }
         public IHttpActionResult Get(int id)
         {
-            DontBreakPlease();
+            PopulateContractService();
             var contract = _contractService.GetContractById(id);
             return Ok(contract);
         }
         public IHttpActionResult Post(ContractCreate contract)
         {
-            DontBreakPlease();
+            PopulateContractService();
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -47,7 +47,7 @@ namespace KomodoDevTeams.Controllers
         }
         public IHttpActionResult Put(ContractEdit contract)
         {
-            DontBreakPlease();
+            PopulateContractService();
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -58,14 +58,14 @@ namespace KomodoDevTeams.Controllers
         }
         public IHttpActionResult Delete(int id)
         {
-            DontBreakPlease();
+            PopulateContractService();
             if (!_contractService.DeleteContracts(id))
                 return InternalServerError();
 
             return Ok();
         }
 
-        private void DontBreakPlease()
+        private void PopulateContractService()
         {
             if (_contractService == null)
             {
