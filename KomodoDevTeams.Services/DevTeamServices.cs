@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace KomodoDevTeams.Services
 {
-	public class DevTeamServices
-	{
+	public class DevTeamServices : IDevTeamServices
+    {
 		private readonly Guid _userId;
 
 		public DevTeamServices(Guid userid)
