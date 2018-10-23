@@ -13,21 +13,11 @@ namespace KomodoDevTeams.Tests
 		private DevService _devService;
 		private readonly Guid _userId;
 
-		//[TestInitialize]
-		//public void Initialize()
-		//{
-		//	_devService = new DevService(_userId);
-		//	DevCreate newDev = new DevCreate()
-		//	{
-		//		DevName = "Zach"
-		//	};
-		//}
 		[TestMethod]
 		public void DevServices_CreateDev_returns_correct_dev_name()
 		{
 			DevCreate newDev = new DevCreate()
 			{
-				OwnerId = _userId,
 				DevName = "Zach"
 			};
 
