@@ -56,8 +56,8 @@ namespace KomodoDevTeams.Services
 				return new ContractDetails
 				{
 					ContractId = entity.ContractId,
-					DevId = entity.Dev.DevId,
-					DevTeamId = entity.DevTeam.TeamId
+					DevId = entity.DevId,
+					DevTeamId = entity.DevTeamId
 				};
 			}
 		}
@@ -72,8 +72,8 @@ namespace KomodoDevTeams.Services
 								.Select(e => new ContractListItem
 								{
 									ContractId = e.ContractId,
-									DevId = e.Dev.DevId,
-									DevTeamId = e.DevTeam.TeamId
+									DevId = e.DevId,
+									DevTeamId = e.DevTeamId
 								});
 				return query.ToArray();
 			}
@@ -88,7 +88,7 @@ namespace KomodoDevTeams.Services
 								.Single(e => e.ContractId == model.ContractId && e.OwnerId == _userid);
 				entity.ContractId = model.ContractId;
 				entity.Dev.DevId = model.DevId;
-				entity.DevTeam.TeamId = model.DevTeamId;
+				entity.DevTeamId = model.DevTeamId;
 
 				return ctx.SaveChanges() == 1;
 			}
