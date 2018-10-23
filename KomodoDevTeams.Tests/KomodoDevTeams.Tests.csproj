@@ -54,6 +54,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Http, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DevTests.cs" />
@@ -64,6 +65,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\KomodoDevTeams.Contracts\KomodoDevTeams.Contracts.csproj">
+      <Project>{928AA7C2-537F-428D-8F92-06D4D71C8DB3}</Project>
+      <Name>KomodoDevTeams.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KomodoDevTeams.Data\KomodoDevTeams.Data.csproj">
       <Project>{53FCE0AB-2430-42D7-8B14-497C2EDFE89C}</Project>
       <Name>KomodoDevTeams.Data</Name>
@@ -75,6 +80,10 @@
     <ProjectReference Include="..\KomodoDevTeams.Services\KomodoDevTeams.Services.csproj">
       <Project>{FE66A085-92FC-49E3-9DDF-D7793959BE8B}</Project>
       <Name>KomodoDevTeams.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KomodoDevTeams\KomodoDevTeams.WebAPI.csproj">
+      <Project>{E88A820B-CF17-4945-A032-3A80EF8602AD}</Project>
+      <Name>KomodoDevTeams.WebAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -1,43 +1,43 @@
 ﻿using System;
 using System.Linq;
+using System.Web.Http.Results;
+using KomodoDevTeams.Controllers;
 using KomodoDevTeams.Data;
 using KomodoDevTeams.Models;
 using KomodoDevTeams.Services;
+using KomodoDevTeams.Services.MockServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace KomodoDevTeams.Tests
 {
-	[TestClass]
-	public class DevTests
-	{
-		private DevService _devService;
-		private readonly Guid _userId;
+    [TestClass]
+    public class DevTests
+    {
+        private ContractController _controller;
+        private MockContractService _mockService;
 
-		[TestMethod]
-		public void DevServices_CreateDev_returns_correct_dev_name()
-		{
-			DevCreate newDev = new DevCreate()
-			{
-				DevName = "Zach"
-			};
+        [TestInitialize]
+        public void Arrange()
+        {
+            _mockService = new MockContractService();
+            _controller = new ContractController(_mockService);
+        }
 
-			_devService = new DevService(_userId);
+        [TestMethod]
+        public void ContractController_PostContract_ShouldReturnOk()
+        {
+            _mockService.ReturnValue = true;
+            var contract = new ContractCreate {
+                ContractId = 1,
+                DevId = 1,
+                DevTeamId = 1,
+                EffectiveDate = DateTimeOffset.Now
+            };
 
-			_devService.CreateDev(newDev);
+            var result = _controller.Post(contract);
 
-			var expected = true;
-			var actual = _devService.CreateDev(newDev);
-			Assert.AreEqual(expected, actual);
-		}
-		[TestMethod]
-		public void DevServices_GetDevs_returns_list_of_devs()
-		{
-			_devService = new DevService(_userId);
-
-			var expected = true;
-			var actual = _devService.GetDevs().ToString().Contains("Tarl");
-			Assert.AreEqual(expected, actual);
-		}
-		}
-	}
-
+            Assert.IsInstanceOfType(result, typeof(OkResult));
+            Assert.AreEqual(1, _mockService.CallCount);
+        }
+    }
+}

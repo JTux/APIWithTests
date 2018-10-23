@@ -17,6 +17,5 @@ namespace KomodoDevTeams.Data
 
 		public virtual Dev Dev { get; set; }
 		public virtual DevTeam DevTeam { get; set; }
-
 	}
 }

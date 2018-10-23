@@ -57,6 +57,7 @@
     <Compile Include="ContractService.cs" />
     <Compile Include="DevService.cs" />
     <Compile Include="DevTeamServices.cs" />
+    <Compile Include="MockServices\MockContractService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

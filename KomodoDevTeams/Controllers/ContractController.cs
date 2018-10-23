@@ -1,5 +1,7 @@
-﻿using KomodoDevTeams.Models;
+﻿using KomodoDevTeams.Contracts;
+using KomodoDevTeams.Models;
 using KomodoDevTeams.Services;
+using KomodoDevTeams.Services.MockServices;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -10,58 +12,60 @@ using System.Web.Http;
 
 namespace KomodoDevTeams.Controllers
 {
-	[Authorize]
+    [Authorize]
     public class ContractController : ApiController
     {
-		public IHttpActionResult GetAll()
-		{
-			ContractService contractService = CreateContractService();
-			var contract = contractService.GetContracts();
-			return Ok(contract);
-		}
-		public IHttpActionResult Get(int id)
-		{
-			ContractService contractService = CreateContractService();
-			var contract = contractService.GetContractById(id);
-			return Ok(contract);
-		}
-		public IHttpActionResult Post(ContractCreate contract)
-		{
-			if (!ModelState.IsValid)
-				return BadRequest(ModelState);
+        private IContractService _contractService;
 
-			var service = CreateContractService();
+        public ContractController()
+        {
+            _contractService = CreateContractService();
+        }
+        public ContractController(IContractService mockService)
+        {
+            _contractService = mockService;
+        }
 
-			if (!service.CreateContract(contract))
-				return InternalServerError();
-			return Ok();
-		}
-		public IHttpActionResult Put(ContractEdit contract)
-		{
-			if (!ModelState.IsValid)
-				return BadRequest(ModelState);
+        public IHttpActionResult GetAll()
+        {
+            var contract = _contractService.GetContracts();
+            return Ok(contract);
+        }
+        public IHttpActionResult Get(int id)
+        {
+            var contract = _contractService.GetContractById(id);
+            return Ok(contract);
+        }
+        public IHttpActionResult Post(ContractCreate contract)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-			var service = CreateContractService();
+            if (!_contractService.CreateContract(contract))
+                return InternalServerError();
+            return Ok();
+        }
+        public IHttpActionResult Put(ContractEdit contract)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-			if (!service.UpdateContracts(contract))
-				return InternalServerError();
+            if (!_contractService.UpdateContracts(contract))
+                return InternalServerError();
 
-			return Ok();
-		}
-		public IHttpActionResult Delete(int id)
-		{
-			var service = CreateContractService();
+            return Ok();
+        }
+        public IHttpActionResult Delete(int id)
+        {
+            if (!_contractService.DeleteContracts(id))
+                return InternalServerError();
 
-			if (!service.DeleteContracts(id))
-				return InternalServerError();
-
-			return Ok();
-		}
-		private ContractService CreateContractService()
-		{
-			var userId = Guid.Parse(User.Identity.GetUserId());
-			var contractService = new ContractService(userId);
-			return contractService;
-		}
+            return Ok();
+        }
+        private IContractService CreateContractService()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            return new ContractService(userId);
+        }
     }
 }
