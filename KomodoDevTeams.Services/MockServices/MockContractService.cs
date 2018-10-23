@@ -27,12 +27,17 @@ namespace KomodoDevTeams.Services.MockServices
 
         public ContractDetails GetContractById(int id)
         {
+            CallCount++;
             return new ContractDetails { ContractId = id };
         }
 
         public IEnumerable<ContractListItem> GetContracts()
         {
-            var @return = new List<ContractListItem> { new ContractListItem { ContractId = 1 } };
+            CallCount++;
+            var @return = new List<ContractListItem>
+            {
+                new ContractListItem { ContractId = 1 }
+            };
             return @return;
         }
 
