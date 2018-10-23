@@ -17,10 +17,7 @@ namespace KomodoDevTeams.Controllers
     {
         private IContractService _contractService;
 
-        public ContractController()
-        {
-            _contractService = CreateContractService();
-        }
+        public ContractController() { }
         public ContractController(IContractService mockService)
         {
             _contractService = mockService;
@@ -28,16 +25,19 @@ namespace KomodoDevTeams.Controllers
 
         public IHttpActionResult GetAll()
         {
+            DontBreakPlease();
             var contract = _contractService.GetContracts();
             return Ok(contract);
         }
         public IHttpActionResult Get(int id)
         {
+            DontBreakPlease();
             var contract = _contractService.GetContractById(id);
             return Ok(contract);
         }
         public IHttpActionResult Post(ContractCreate contract)
         {
+            DontBreakPlease();
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -47,6 +47,7 @@ namespace KomodoDevTeams.Controllers
         }
         public IHttpActionResult Put(ContractEdit contract)
         {
+            DontBreakPlease();
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -57,15 +58,20 @@ namespace KomodoDevTeams.Controllers
         }
         public IHttpActionResult Delete(int id)
         {
+            DontBreakPlease();
             if (!_contractService.DeleteContracts(id))
                 return InternalServerError();
 
             return Ok();
         }
-        private IContractService CreateContractService()
+
+        private void DontBreakPlease()
         {
-            var userId = Guid.Parse(User.Identity.GetUserId());
-            return new ContractService(userId);
+            if (_contractService == null)
+            {
+                var userId = Guid.Parse(User.Identity.GetUserId());
+                _contractService = new ContractService(userId);
+            }
         }
     }
 }
