@@ -1,63 +1,78 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using KomodoDevTeams.Controllers;
+using KomodoDevTeams.Services.MockServices;
+using KomodoDevTeams.Models;
+using System.Web.Http.Results;
+using KomodoDevTeams.WebAPI.Controllers;
 
 namespace KomodoDevTeams.Tests
 {
     [TestClass]
     public class DevTests
     {
-        public DevTests()
+        private DevController _controller;
+        private MockDevService _mockService;
+
+        [TestInitialize]
+        public void Arrange()
         {
+            _mockService = new MockDevService { ReturnValue = true };
+            _controller = new DevController(_mockService);
         }
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-
-        #region Additional test attributes
-        //
-        // You can use the following additional attributes as you write your tests:
-        //
-        // Use ClassInitialize to run code before running the first test in the class
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // Use ClassCleanup to run code after all tests in a class have run
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // Use TestInitialize to run code before running each test 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // Use TestCleanup to run code after each test has run
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void DevController_PostDev_ShouldReturnOk()
         {
-            //
-            // TODO: Add test logic here
-            //
+            var dev = new DevCreate { DevName = "name" };
+
+            var result = _controller.Post(dev);
+
+            Assert.AreEqual(1, _mockService.CallCount);
+            Assert.IsInstanceOfType(result, typeof(OkResult));
+        }
+
+        [TestMethod]
+        public void DevController_DeleteDev_ShouldReturnCorrectInt()
+        {
+            _mockService.CallCount = 1;
+
+            var result = _controller.Delete(1);
+
+            Assert.AreEqual(0, _mockService.CallCount);
+            Assert.IsInstanceOfType(result, typeof(OkResult));
+        }
+
+        [TestMethod]
+        public void DevController_GetAll_CountShouldBeCorrectInt()
+        {
+            var result = _controller.GetAll();
+
+            Assert.AreEqual(1, _mockService.CallCount);
+            Assert.IsInstanceOfType(
+                result,
+                typeof(OkNegotiatedContentResult<IEnumerable<DevListItem>>)
+                );
+        }
+
+        [TestMethod]
+        public void DevController_GetByID_CountShouldBeCorrectInt()
+        {
+            var result = _controller.Get(1);
+
+            Assert.AreEqual(1, _mockService.CallCount);
+            Assert.IsInstanceOfType(result, typeof(OkNegotiatedContentResult<DevDetails>));
+        }
+
+        [TestMethod]
+        public void DevController_UpdateDev_CountShouldBeCorrectInt()
+        {
+            var newDev = new DevEdit { DevName = "Name" };
+
+            var result = _controller.Put(newDev);
+
+            Assert.AreEqual(1, _mockService.CallCount);
+            Assert.IsInstanceOfType(result, typeof(OkResult));
         }
     }
 }

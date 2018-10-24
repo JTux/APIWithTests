@@ -1,4 +1,5 @@
-﻿using KomodoDevTeams.Models;
+﻿using KomodoDevTeams.Contracts;
+using KomodoDevTeams.Models;
 using KomodoDevTeams.Services;
 using Microsoft.AspNet.Identity;
 using System;
@@ -10,58 +11,68 @@ using System.Web.Http;
 
 namespace KomodoDevTeams.WebAPI.Controllers
 {
-	[Authorize]
+    [Authorize]
     public class DevController : ApiController
     {
-		public IHttpActionResult GetAll()
-		{
-			DevService devService = CreateDevService();
-			var devs = devService.GetDevs();
-			return Ok(devs);
-		}
-		public IHttpActionResult Get(int id)
-		{
-			DevService devService = CreateDevService();
-			var devs = devService.GetDevById(id);
-			return Ok(devs);
-		}
-		public IHttpActionResult Post(DevCreate dev)
-		{
-			if (!ModelState.IsValid)
-				return BadRequest(ModelState);
+        private IDevService _devService;
 
-			var service = CreateDevService();
+        public DevController() { }
+        public DevController(IDevService mockService)
+        {
+            _devService = mockService;
+        }
 
-			if (!service.CreateDev(dev))
-				return InternalServerError();
-			return Ok();
-		}
-		public IHttpActionResult Put(DevEdit dev)
-		{
-			if (!ModelState.IsValid)
-				return BadRequest(ModelState);
+        public IHttpActionResult GetAll()
+        {
+            CreateDevService();
+            var devs = _devService.GetDevs();
+            return Ok(devs);
+        }
+        public IHttpActionResult Get(int id)
+        {
+            CreateDevService();
+            var devs = _devService.GetDevById(id);
+            return Ok(devs);
+        }
+        public IHttpActionResult Post(DevCreate dev)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-			var service = CreateDevService();
+            CreateDevService();
 
-			if (!service.UpdateDev(dev))
-				return InternalServerError();
+            if (!_devService.CreateDev(dev))
+                return InternalServerError();
+            return Ok();
+        }
+        public IHttpActionResult Put(DevEdit dev)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-			return Ok();
-		}
-		public IHttpActionResult Delete(int id)
-		{
-			var service = CreateDevService();
+            CreateDevService();
 
-			if (!service.DeleteDev(id))
-				return InternalServerError();
+            if (!_devService.UpdateDev(dev))
+                return InternalServerError();
 
-			return Ok();
-		}
-		private DevService CreateDevService()
-		{
-			var userId = Guid.Parse(User.Identity.GetUserId());
-			var devSerivce = new DevService(userId);
-			return devSerivce;
-		}
+            return Ok();
+        }
+        public IHttpActionResult Delete(int id)
+        {
+            CreateDevService();
+
+            if (!_devService.DeleteDev(id))
+                return InternalServerError();
+
+            return Ok();
+        }
+        private void CreateDevService()
+        {
+            if (_devService == null)
+            {
+                var userId = Guid.Parse(User.Identity.GetUserId());
+                _devService = new DevService(userId);
+            }
+        }
     }
 }

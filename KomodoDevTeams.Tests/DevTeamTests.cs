@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KomodoDevTeams.Controllers;
 using KomodoDevTeams.Services.MockServices;
@@ -25,9 +23,9 @@ namespace KomodoDevTeams.Tests
         [TestMethod]
         public void DevTeamController_PostDevTeam_ShouldReturnOk()
         {
-            var contract = new DevTeamCreate { TeamName = "name" };
+            var devTeam = new DevTeamCreate { TeamName = "name" };
 
-            var result = _controller.Post(contract);
+            var result = _controller.Post(devTeam);
 
             Assert.AreEqual(1, _mockService.CallCount);
             Assert.IsInstanceOfType(result, typeof(OkResult));

@@ -1,4 +1,5 @@
-﻿using KomodoDevTeams.Data;
+﻿using KomodoDevTeams.Contracts;
+using KomodoDevTeams.Data;
 using KomodoDevTeams.Models;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace KomodoDevTeams.Services
 {
-	public class DevService
-	{
+	public class DevService : IDevService
+    {
 		private readonly Guid _userId;
 
 		public DevService(Guid userId)
