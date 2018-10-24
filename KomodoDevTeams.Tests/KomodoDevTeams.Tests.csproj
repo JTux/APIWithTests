@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContractTests.cs" />
+    <Compile Include="DevTeamTests.cs" />
     <Compile Include="DevTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

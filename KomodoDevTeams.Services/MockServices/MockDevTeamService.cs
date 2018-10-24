@@ -43,6 +43,7 @@ namespace KomodoDevTeams.Services.MockServices
 
         public bool UpdateDevTeam(DevTeamEdit model)
         {
+            CallCount++;
             return ReturnValue;
         }
     }
