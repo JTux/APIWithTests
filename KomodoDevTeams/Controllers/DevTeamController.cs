@@ -1,67 +1,72 @@
-﻿using KomodoDevTeams.Models;
+﻿using KomodoDevTeams.Contracts;
+using KomodoDevTeams.Models;
 using KomodoDevTeams.Services;
 using Microsoft.AspNet.Identity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace KomodoDevTeams.Controllers
 {
-	[Authorize]
+    [Authorize]
     public class DevTeamController : ApiController
     {
-		public IHttpActionResult GetAll()
-		{
-			DevTeamServices devTeamService = CreateDevTeamService();
-			var devTeam = devTeamService.GetDevTeams();
-			return Ok(devTeam);
-		}
-		public IHttpActionResult Get(int id)
-		{
-			DevTeamServices devTeamService = CreateDevTeamService();
-			var devTeam = devTeamService.GetDevTeamById(id);
-			return Ok(devTeam);
-		}
-		public IHttpActionResult Post(DevTeamCreate dev)
-		{
-			if (!ModelState.IsValid)
-				return BadRequest(ModelState);
+        private IDevTeamService _devTeamService;
 
-			var service = CreateDevTeamService();
+        public DevTeamController() { }
+        public DevTeamController(IDevTeamService mockService)
+        {
+            _devTeamService = mockService;
+        }
 
-			if (!service.CreateDevTeam(dev))
-				return InternalServerError();
-			return Ok();
-		}
-		public IHttpActionResult Put(DevTeamEdit devTeam)
-		{
-			if (!ModelState.IsValid)
-				return BadRequest(ModelState);
+        public IHttpActionResult GetAll()
+        {
+            PopulateDevTeamService();
+            var devTeam = _devTeamService.GetDevTeams();
+            return Ok(devTeam);
+        }
+        public IHttpActionResult Get(int id)
+        {
+            PopulateDevTeamService();
+            var devTeam = _devTeamService.GetDevTeamById(id);
+            return Ok(devTeam);
+        }
+        public IHttpActionResult Post(DevTeamCreate dev)
+        {
+            PopulateDevTeamService();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-			var service = CreateDevTeamService();
+            if (!_devTeamService.CreateDevTeam(dev))
+                return InternalServerError();
+            return Ok();
+        }
+        public IHttpActionResult Put(DevTeamEdit devTeam)
+        {
+            PopulateDevTeamService();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-			if (!service.UpdateDevTeam(devTeam))
-				return InternalServerError();
+            if (!_devTeamService.UpdateDevTeam(devTeam))
+                return InternalServerError();
 
-			return Ok();
-		}
-		public IHttpActionResult Delete(int id)
-		{
-			var service = CreateDevTeamService();
+            return Ok();
+        }
+        public IHttpActionResult Delete(int id)
+        {
+            PopulateDevTeamService();
+            if (!_devTeamService.DeleteDevTeam(id))
+                return InternalServerError();
 
-			if (!service.DeleteDevTeam(id))
-				return InternalServerError();
+            return Ok();
+        }
 
-			return Ok();
-		}
-		private DevTeamServices CreateDevTeamService()
-		{
-			var userId = Guid.Parse(User.Identity.GetUserId());
-			var devTeamSerivce = new DevTeamServices(userId);
-			return devTeamSerivce;
-		}
-	}
+        private void PopulateDevTeamService()
+        {
+            if (_devTeamService == null)
+            {
+                var userId = Guid.Parse(User.Identity.GetUserId());
+                var _devTeamService = new DevTeamServices(userId);
+            }
+        }
+    }
 }

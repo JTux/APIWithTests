@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KomodoDevTeams.Contracts;
 using KomodoDevTeams.Models;
 
 namespace KomodoDevTeams.Services.MockServices
 {
-    public class MockDevService : IDevTeamServices
+    public class MockDevTeamService : IDevTeamService
     {
         public bool ReturnValue { get; set; }
         public int CallCount { get; set; }

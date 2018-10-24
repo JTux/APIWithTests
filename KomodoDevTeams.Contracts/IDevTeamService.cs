@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using KomodoDevTeams.Models;
 
-namespace KomodoDevTeams.Services
+namespace KomodoDevTeams.Contracts
 {
-    public interface IDevTeamServices
+    public interface IDevTeamService
     {
         bool CreateDevTeam(DevTeamCreate model);
         bool DeleteDevTeam(int id);
